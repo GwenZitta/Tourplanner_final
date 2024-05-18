@@ -14,29 +14,23 @@ public class TourApi {
     @Autowired
     private TourService tourService;
 
-    @GetMapping("/getAllTours")
-    public List<TourDto> getAllTours() {
-        return tourService.getAllTours();
-    }
-
-    @PostMapping
-    public void insertNewTour(@RequestBody TourDto tour) {
-        tourService.saveNewTour(tour);
-    }
-
-    @DeleteMapping("/deleteTour/{id}")
-    public void deleteTourById(@PathVariable Long id) {
-        tourService.deleteTour(id);
-    }
-
+    @GetMapping
+    public List<TourDto> getAllTours() { return tourService.getAllTours(); }
     @GetMapping("/getTourById/{id}")
     public List<TourDto> getTourById(@PathVariable Long id) {
         return tourService.getTourById(id);
     }
-
     @GetMapping("/getTourByName/{name}")
     public List<TourDto> getTourByName(@PathVariable String name) {
         return tourService.getTourByName(name);
+    }
+
+    @PostMapping
+    public void insertNewTour(@RequestBody TourDto tour) { tourService.saveNewTour(tour); }
+
+    @DeleteMapping("/deleteTour/{id}")
+    public void deleteTourById(@PathVariable Long id) {
+        tourService.deleteTour(id);
     }
 
     @PutMapping

@@ -1,5 +1,6 @@
 package com.example.tourplanner.service.dtos;
 
+import com.example.tourplanner.persistence.entities.TourEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TourLogDto {
     private Long id;
-    private Long tourId;
+    private TourEntity tour;
     private String datetime;
     private String comment;
     private String difficulty;
