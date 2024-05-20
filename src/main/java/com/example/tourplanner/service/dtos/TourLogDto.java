@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TourLogDto {
     private Long id;
-    private TourEntity tour;
+    private Long tourid;
     private String datetime;
     private String comment;
     private String difficulty;
