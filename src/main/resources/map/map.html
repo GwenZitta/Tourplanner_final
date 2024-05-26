@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #mapid { width: 600px; height: 400px; }
+        .start-icon {
+            background-color: green;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+        }
+        .end-icon {
+            background-color: red;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+        }
+    </style>
+</head>
+<body>
+<div id="mapid"></div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('mapid').setView([48.230182, 16.385118], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Simplified coordinates for start and end markers
+    var startPoint = [48.240169, 16.377966];
+    var endPoint = [48.22038, 16.392599];
+    var route = [
+        [48.240026, 16.377634],[48.239640, 16.378008],[48.239155, 16.378555],[48.238603, 16.379185],[48.238546, 16.379086],
+        [48.238460, 16.378913],[48.238368, 16.378716],[48.238329, 16.378753],[48.237273, 16.379938],[48.237202, 16.380019],
+        [48.237041, 16.379680],[48.236999, 16.379728],[48.236965, 16.379765],[48.236171, 16.380619],[48.235368, 16.381528],
+        [48.235310, 16.381617],[48.235246, 16.381683],[48.234301, 16.382739],[48.233604, 16.383530],[48.233599, 16.383560],
+        [48.233569, 16.383592],[48.233537, 16.383626],[48.233504, 16.383661],[48.233488, 16.383679],[48.232038, 16.385278],
+        [48.230652, 16.386851],[48.230599, 16.386950],[48.230579, 16.386985],[48.230554, 16.387030],[48.230521, 16.387066],
+        [48.230474, 16.387072],[48.229869, 16.387750],[48.229418, 16.388246],[48.229324, 16.388310],[48.228820, 16.388423],
+        [48.228216, 16.388561],[48.228157, 16.388577],[48.227870, 16.388644],[48.227814, 16.388650],[48.227739, 16.388658],
+        [48.227051, 16.388812],[48.224370, 16.389387],[48.223833, 16.389521],[48.223837, 16.389580],[48.223770, 16.389603],
+        [48.223733, 16.389616],[48.223707, 16.389625],[48.223681, 16.389634],[48.223607, 16.389660],[48.223907, 16.391755],
+        [48.223872, 16.391767],[48.223831, 16.391783],[48.223444, 16.391848],[48.223319, 16.391917],[48.222877, 16.392013],
+        [48.221507, 16.392325],[48.221250, 16.392292],[48.220337, 16.392494],[48.220358, 16.392529],[48.220365, 16.392602]
+    ];
+    var polyline = L.polyline(route, {color: 'blue'}).addTo(map);
+    map.fitBounds(polyline.getBounds());
+
+    // Custom icons for the start and end points
+    var startIcon = L.divIcon({className: 'start-icon'});
+    var endIcon = L.divIcon({className: 'end-icon'});
+
+    // Markers for the start and end points
+    var startMarker = L.marker(startPoint, {icon: startIcon}).addTo(map).bindPopup("Start Point");
+    var endMarker = L.marker(endPoint, {icon: endIcon}).addTo(map).bindPopup("End Point");
+</script>
+</body>
+</html>

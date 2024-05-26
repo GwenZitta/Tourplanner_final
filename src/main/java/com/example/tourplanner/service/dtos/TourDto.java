@@ -17,4 +17,6 @@ public class TourDto implements Serializable{
     private String from_location;
     private String to_location;
     private String transportType;
+    private String distance;
+    private String duration;
 }
