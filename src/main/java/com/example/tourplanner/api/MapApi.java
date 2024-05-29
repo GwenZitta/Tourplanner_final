@@ -1,5 +1,7 @@
 package com.example.tourplanner.api;
 
+import org.attoparser.dom.Text;
+
 import java.util.List;
 
 public interface MapApi {
@@ -8,6 +10,6 @@ public interface MapApi {
 
     Long[] searchDirection(String start, String end, String transport);
 
-    void getMap();
+    String getMap(String start, String end, String transport);
 
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.attoparser.dom.Text;
 
 @Entity
 @Table(name = "tour")
@@ -24,5 +25,6 @@ public class TourEntity {
     private String transportType;
     private String distance;
     private String timeEst;
-    private String image;
+    @Column(length = (1000000))
+    private String map;
 }

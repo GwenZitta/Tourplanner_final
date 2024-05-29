@@ -7,6 +7,8 @@ import com.example.tourplanner.service.TourService;
 import com.example.tourplanner.service.dtos.TourDto;
 import com.example.tourplanner.service.mapper.TourMapper;
 import java.util.ArrayList;
+
+import org.attoparser.dom.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -29,7 +31,8 @@ public class TourServiceImpl implements TourService {
         Long[] result = mapApi.searchDirection(fromCoordinate, toCoordinate, tourDto.getTransportType());
         Long distance = result[0] / 1000;
         Long duration = result[1] / 3600;
-        TourEntity te = new TourEntity(Long.MIN_VALUE, tourDto.getName(), tourDto.getDescription(), tourDto.getFrom_location(), tourDto.getTo_location(), tourDto.getTransportType(), (distance.toString() + "km"), (duration.toString() + "h"), "");
+        String map = mapApi.getMap(fromCoordinate, toCoordinate, tourDto.getTransportType());
+        TourEntity te = new TourEntity(Long.MIN_VALUE, tourDto.getName(), tourDto.getDescription(), tourDto.getFrom_location(), tourDto.getTo_location(), tourDto.getTransportType(), (distance.toString() + "km"), (duration.toString() + "h"), map);
         TourEntity saved=tourRepository.save(te);
         return saved.getId();
     }
@@ -40,7 +43,7 @@ public class TourServiceImpl implements TourService {
         List<TourDto> list_tours = new ArrayList<>();
         List<TourEntity> list_tourstour = tourRepository.findAll();
         for (TourEntity te : list_tourstour) {
-            list_tours.add(new TourDto(te.getId(), te.getName(), te.getDescription(), te.getFrom_location(), te.getTo_location(), te.getTransportType(), te.getDistance(), te.getTimeEst()));
+            list_tours.add(new TourDto(te.getId(), te.getName(), te.getDescription(), te.getFrom_location(), te.getTo_location(), te.getTransportType(), te.getDistance(), te.getTimeEst(), te.getMap()));
         }
         return list_tours;
     }
@@ -50,7 +53,7 @@ public class TourServiceImpl implements TourService {
         List<TourDto> list_tours = new ArrayList<>();
         List<TourEntity> list_tourstour = tourRepository.findByTourName(name);
         for (TourEntity te : list_tourstour) {
-            list_tours.add(new TourDto(te.getId(), te.getName(), te.getDescription(), te.getFrom_location(), te.getTo_location(), te.getTransportType(), te.getDistance(), te.getTimeEst()));
+            list_tours.add(new TourDto(te.getId(), te.getName(), te.getDescription(), te.getFrom_location(), te.getTo_location(), te.getTransportType(), te.getDistance(), te.getTimeEst(), te.getMap()));
         }
         return list_tours;
     }
@@ -59,7 +62,7 @@ public class TourServiceImpl implements TourService {
     public List<TourDto> getTourById(Long id) {
         List<TourDto> list_tours = new ArrayList<>();
         TourEntity tour_entity = tourRepository.findByTourId(id);
-        list_tours.add(new TourDto(tour_entity.getId(), tour_entity.getName(), tour_entity.getDescription(), tour_entity.getFrom_location(), tour_entity.getTo_location(), tour_entity.getTransportType(), tour_entity.getDistance(), tour_entity.getTimeEst()));
+        list_tours.add(new TourDto(tour_entity.getId(), tour_entity.getName(), tour_entity.getDescription(), tour_entity.getFrom_location(), tour_entity.getTo_location(), tour_entity.getTransportType(), tour_entity.getDistance(), tour_entity.getTimeEst(), tour_entity.getMap()));
         return list_tours;
 
     }
@@ -84,7 +87,7 @@ public class TourServiceImpl implements TourService {
                 foundedTour.setTransportType(tourDto.getTransportType());
             }
             TourEntity updatedTourEntity = tourRepository.save(foundedTour);
-            return new TourDto(updatedTourEntity.getId(), updatedTourEntity.getName(), updatedTourEntity.getDescription(), updatedTourEntity.getFrom_location(), updatedTourEntity.getTo_location(), updatedTourEntity.getTransportType(), updatedTourEntity.getDistance(), updatedTourEntity.getTimeEst());
+            return new TourDto(updatedTourEntity.getId(), updatedTourEntity.getName(), updatedTourEntity.getDescription(), updatedTourEntity.getFrom_location(), updatedTourEntity.getTo_location(), updatedTourEntity.getTransportType(), updatedTourEntity.getDistance(), updatedTourEntity.getTimeEst(), updatedTourEntity.getMap());
 
         }
         return null;

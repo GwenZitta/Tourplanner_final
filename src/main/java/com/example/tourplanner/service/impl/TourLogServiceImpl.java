@@ -11,6 +11,7 @@ import com.example.tourplanner.service.mapper.TourLogMapper;
 import java.util.ArrayList;
 
 import com.example.tourplanner.service.mapper.TourMapper;
+import org.attoparser.dom.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class TourLogServiceImpl implements TourLogService {
     @Override
     public Long saveNewTourLog(TourLogDto tourLogDto) {
         TourDto tourDto = tourService.getTourById(tourLogDto.getTourid()).get(0);
-        TourEntity te = new TourEntity(tourDto.getId(), tourDto.getName(), tourDto.getDescription(), tourDto.getFrom_location(), tourDto.getTo_location(), tourDto.getTransportType(), "", "", "");
+        TourEntity te = new TourEntity(tourDto.getId(), tourDto.getName(), tourDto.getDescription(), tourDto.getFrom_location(), tourDto.getTo_location(), tourDto.getTransportType(), tourDto.getDistance(), tourDto.getDuration(), tourDto.getMap());
         TourLogEntity tle = new TourLogEntity(Long.MIN_VALUE, tourLogDto.getDatetime(), tourLogDto.getComment(), tourLogDto.getDifficulty(), tourLogDto.getDistance(), tourLogDto.getTime(), tourLogDto.getRating(), te);
         TourLogEntity saved = tourLogRepository.save(tle);
         return saved.getId();
@@ -71,7 +72,7 @@ public class TourLogServiceImpl implements TourLogService {
         if (foundTourLog != null) {
             if (tourLogDto.getTourid() != null) {
                 TourDto tourDto = tourService.getTourById(tourLogDto.getTourid()).get(0);
-                TourEntity te = new TourEntity(tourDto.getId(), tourDto.getName(), tourDto.getDescription(), tourDto.getFrom_location(), tourDto.getTo_location(), tourDto.getTransportType(), "", "", "");
+                TourEntity te = new TourEntity(tourDto.getId(), tourDto.getName(), tourDto.getDescription(), tourDto.getFrom_location(), tourDto.getTo_location(), tourDto.getTransportType(), tourDto.getDistance(), tourDto.getDuration(), tourDto.getMap());
                 foundTourLog.setTour(te);
             }
             if (tourLogDto.getDatetime() != null) {
