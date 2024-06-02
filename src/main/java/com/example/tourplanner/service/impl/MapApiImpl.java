@@ -106,7 +106,6 @@ public class MapApiImpl implements MapApi {
                 coordinates = coordinates + ",";
             }
         }
-        System.out.println(coordinates);
 
         String map = "<!DOCTYPE html><html><head>    <title>Simple Map</title>    <meta charset='utf-8' />    <meta name='viewport' content='width=device-width, initial-scale=1.0'>    <link rel='stylesheet' href='https://unpkg.com/leaflet/dist/leaflet.css' />    <style>        #mapid { width: 600px; height: 400px; }        .start-icon {            background-color: green;            border-radius: 50%;            width: 12px;            height: 12px;        }        .end-icon {            background-color: red;            border-radius: 50%;            width: 12px;            height: 12px;        }    </style></head><body><div id='mapid'></div><script src='https://unpkg.com/leaflet/dist/leaflet.js'></script><script>    var map = L.map('mapid').setView(["
                 + start.substring(10) + "," + start.substring(0, 8)

@@ -24,7 +24,7 @@ public class TourLogEntity {
     private String time;
     private String rating;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_TOUR")
     private TourEntity tour;
 }
